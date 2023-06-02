@@ -8,9 +8,10 @@ import { AuthGuard } from './security/auth.guard';
 import { RolesGuard } from './security/roles.guard';
 import { RoleType } from './role-type';
 import { Roles } from './decorator/role.decorator';
+import { User } from './domain/user.entity';
 
 
-@Controller('auth')
+@Controller('api')
 export class AuthController {
     constructor(private authService: AuthService){}
 
@@ -31,17 +32,19 @@ export class AuthController {
         })
         
         
-        return res.send({
-            message: 'success'
-        });
+        return res.json(jwt);
+        // res.send({
+            
+        //     message: 'success'
+        // });
     }
 
-    @Get('/authenticate')
-    @UseGuards(AuthGuard)
-    isAuthenticated(@Req() req: Request): any {
-        const user: any = req.user;
-        return user;
-    }
+    // @Get('/authenticate')
+    // @UseGuards(AuthGuard)
+    // isAuthenticated(@Req() req: Request): any {
+    //     const user: any = req.user;
+    //     return user;
+    // }
 
     @Get('/admin-role')
     @UseGuards(AuthGuard, RolesGuard)
@@ -66,4 +69,9 @@ export class AuthController {
             message: 'success'
         })
     }
+    
+    // @Post('/cancel-user')
+    // async cancel(@Body() userDTO: UserDTO, @Res() res: Response): Promise<any> {
+    //     return await this.authService.cancelUser(userDTO);
+    // }
 }

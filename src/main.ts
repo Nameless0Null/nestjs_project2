@@ -5,6 +5,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 
 
+import { ConfigService } from "@nestjs/config";
+
 import * as express from 'express';
 import cookieParser from 'cookie-parser';
 
@@ -31,8 +33,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api',app,document);
 
-
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+  const port = configService.get<string>('server.port');
+  await app.listen(port);
+  console.log(`Application listening on port ${port}`);
 }
 bootstrap();
 

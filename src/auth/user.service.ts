@@ -12,7 +12,6 @@ import { User } from "./domain/user.entity";
 export class UserService {
 
     constructor(
-        @InjectRepository(UserRepository)
         private userRepository: UserRepository
     ){}
 
@@ -23,7 +22,7 @@ export class UserService {
         return Promise.resolve();
     }
     
-    async findByFields(options: FindOneOptions<UserDTO>): Promise<User | undefined> {
+    async findByFields(options: FindOneOptions<User>): Promise<User | undefined> {
         return await this.userRepository.findOne(options);
     }
 
