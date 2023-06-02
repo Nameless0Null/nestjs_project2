@@ -11,7 +11,9 @@ import * as express from 'express';
 import cookieParser from 'cookie-parser';
 
 
+
 async function bootstrap() {
+  
   
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
@@ -34,7 +36,9 @@ async function bootstrap() {
   SwaggerModule.setup('api',app,document);
 
   const configService = app.get(ConfigService);
-  const port = configService.get<string>('server.port');
+  const port = 3000;
+  // const port = process.env.NODE_SERVER_PORT
+  // const port = configService.get<string>('server.port');
   await app.listen(port);
   console.log(`Application listening on port ${port}`);
 }

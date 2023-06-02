@@ -17,6 +17,7 @@ export class AuthService {
     constructor(
         private userService: UserService,
         private jwtService: JwtService,
+        
         private userRepository: UserRepository,
         private userAuthorityRepository: UserAuthorityRepository,
         private dataSource: DataSource,
@@ -73,6 +74,9 @@ export class AuthService {
         return user;
     }
 
+
+
+    
     async deleteUser(user: User): Promise<any>{
         return await this.userRepository.createQueryBuilder()
             .delete()
